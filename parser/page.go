@@ -24,7 +24,10 @@ type page struct {
 // Псевдо-конструктор
 func Page(url string) *page {
 	p := &page{Url: url}
-	p.init()
+	err := p.init()
+	if err != nil {
+		panic(err)
+	}
 	return p
 }
 
