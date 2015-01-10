@@ -1,4 +1,4 @@
-package http
+package parser
 // ========================================================================================
 // Структура для загрузки интернет страниц
 //
@@ -8,7 +8,7 @@ package http
 import (
 	"errors"
 	"io/ioutil"
-	netHttp "net/http"
+	"net/http"
 )
 
 var LoadPageError = errors.New("Произошла ошибка при загрузке страницы!")
@@ -17,7 +17,7 @@ var ReadPageError = errors.New("Произошла ошибка при чтен�
 // Структура для загрузки и хранения информации об интернет странице
 type page struct {
 	Url string
-	Response *netHttp.Response
+	Response *http.Response
 	Body []byte
 }
 
@@ -30,7 +30,7 @@ func Page(url string) *page {
 
 // Первичная инициализация структуры
 func (self *page) init() error {
-	response, err := netHttp.Get(self.Url)
+	response, err := http.Get(self.Url)
 	if err != nil {
 		return LoadPageError
 	}
